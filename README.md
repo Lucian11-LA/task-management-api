@@ -7,6 +7,7 @@ Desenvolvi uma API RESTful para gerenciamento de tarefas, utilizando Node.js, Ex
 Criação de tarefas: Usuários podem criar tarefas com título e descrição.
 Listagem de tarefas: Usuários podem visualizar suas tarefas cadastradas.
 Autenticação via JWT: Acesso seguro à API com autenticação baseada em tokens JWT.
+![Logo do projeto](api-todo.png)
 
 Tecnologias Utilizadas:
 
