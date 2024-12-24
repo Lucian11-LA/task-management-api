@@ -18,7 +18,7 @@ sequelize.authenticate()
     .then(() => console.log('Conectado ao banco de dados'))
     .catch(err => console.error('Erro ao conectar ao banco de dados:', err));
 
-const User = require('./user')(sequelize, DataTypes);
+const User = require('./users')(sequelize, DataTypes);
 const Task = require('./task')(sequelize, DataTypes);
 
 User.hasMany(Task);

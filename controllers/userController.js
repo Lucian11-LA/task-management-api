@@ -31,30 +31,35 @@ const registerUser = async (req, res) =>{
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
-    if(!email || !password){
-        return res.status(400).json({message: 'Todos os campos são obrigatórios!'});
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Todos os campos são obrigatórios!' });
     }
 
-    try{
-        const user = await User.findOne({where:{email}});
+    try {
+        const user = await User.findOne({ where: { email } });
 
-        if(!user){
-            return res.status(401).json({message: 'Email ou senha inválidos!'});
+        if (!user) {
+            return res.status(401).json({ message: 'Email ou senha inválidos!' });
         }
 
+        const isMatch = await bcrypt.compare(password, user.password);
 
-        const isMatch = await bcrypt.compare(password, user.password)
-        if(!isMatch){
-            return res.sats(401).json({message: 'Email ou senha inválidos!'});
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Email ou senha inválidos!' });
         }
 
-        const token = jwt.sign({Id: user.id, email: user.emailprocess.env.JWT_SECRET,expiresIn: process.env.JWT_EXPIRATION });
+        const token = jwt.sign(
+            { id: user.id, email: user.email },
+            process.env.JWT_SECRET,  // chave secreta
+            { expiresIn: process.env.JWT_EXPIRATION }  // opções do JWT
+        );
+        
         res.json({ token });
 
-    } catch(error){
-        console.log(error);
-        res.status(500).json({message: 'Erro ao fazer login'})
-    }     
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao fazer login' });
+    }
 };
 
 module.exports= {registerUser, loginUser};
