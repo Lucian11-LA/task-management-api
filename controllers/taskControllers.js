@@ -13,6 +13,7 @@ const createTask = async (req, res) =>{
             description,
             userId: req.user.id,
         });
+        
         res.status(201).json(task);
     }catch(error){
         console.log(error);

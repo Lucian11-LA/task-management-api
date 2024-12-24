@@ -16,6 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         completed:{
             type: DataTypes.BOOLEAN,
             defaultValue:false
+        },
+
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            references: {
+                model: 'User',
+                key: 'id'
+            }
         }
 
     });
